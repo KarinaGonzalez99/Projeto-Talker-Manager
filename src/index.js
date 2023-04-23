@@ -8,7 +8,7 @@ const HTTP_OK_STATUS = 200;
 const PORT = process.env.PORT || '3001';
 
 const { getAllTalkers, getTalkerById, 
-  updateTalkerById } = require('./talkerController');
+  updateTalkerById, deleteTalkerById } = require('./talkerController');
 const { login, validateLogin } = require('./loginController');
 const { validateToken, validateTalkerData } = require('./middleware');
 
@@ -34,6 +34,8 @@ app.post('/talker', validateToken, validateTalkerData, async (req, res) => {
 });
 
 app.put('/talker/:id', validateToken, validateTalkerData, updateTalkerById);
+
+app.delete('/talker/:id', validateToken, deleteTalkerById);
 
 app.listen(PORT, () => {
   console.log('Online');
