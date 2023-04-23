@@ -7,7 +7,8 @@ app.use(express.json());
 const HTTP_OK_STATUS = 200;
 const PORT = process.env.PORT || '3001';
 
-const { getAllTalkers, getTalkerById } = require('./talkerController');
+const { getAllTalkers, getTalkerById, 
+  updateTalkerById } = require('./talkerController');
 const { login, validateLogin } = require('./loginController');
 const { validateToken, validateTalkerData } = require('./middleware');
 
@@ -31,6 +32,8 @@ app.post('/talker', validateToken, validateTalkerData, async (req, res) => {
   await fs.writeFile('./src/talker.json', JSON.stringify(talkers));
   res.status(201).json(newTalker);
 });
+
+app.put('/talker/:id', validateToken, validateTalkerData, updateTalkerById);
 
 app.listen(PORT, () => {
   console.log('Online');
